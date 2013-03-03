@@ -125,7 +125,6 @@
 (constant (einprogress "EINPROGRESS"))
 (constant (estale "ESTALE"))
 
-
 (cstruct v4l2-capability "struct v4l2_capability"
 	 (driver "driver" :type :char :count 16)
 	 (card "card" :type :char :count 32)
@@ -136,172 +135,111 @@
 
 ;;; Capabilities constants (pilfered from v4l2)
 
-(constant (cap-video-capture "V4L2_CAP_VIDEO_CAPTURE")
-	  :documentation "Is a video capture device")
-
-(constant (cap-video-output "V4L2_CAP_VIDEO_OUTPUT")
-	  :documentation "Is a video output device")
-
-(constant (cap-video-overlay "V4L2_CAP_VIDEO_OVERLAY")
-	  :documentation "Can do video overlay")
-
-(constant (cap-vbi-capture "V4L2_CAP_VBI_CAPTURE")
-	  :documentation "Is a raw VBI capture device")
-
-(constant (cap-vbi-output "V4L2_CAP_VBI_OUTPUT")
-	  :documentation "Is a raw VBI output device")
-
-(constant (cap-sliced-vbi-capture "V4L2_CAP_SLICED_VBI_CAPTURE")
-	  :documentation "Is a sliced VBI capture device")
-
-(constant (cap-sliced-vbi-output "V4L2_CAP_SLICED_VBI_OUTPUT")
-	  :documentation "Is a sliced VBI output device")
-
-(constant (cap-rds-capture "V4L2_CAP_RDS_CAPTURE")
-	  :documentation "RDS data capture")
-
-(constant (cap-video-output-overlay "V4L2_CAP_VIDEO_OUTPUT_OVERLAY")
-	  :documentation "Can do video output overlay")
-
-(constant (cap-hw-freq-seek "V4L2_CAP_HW_FREQ_SEEK")
-	  :documentation "Can do hardware frequency seek")
-
-(constant (cap-tuner "V4L2_CAP_TUNER")
-	  :documentation "has a tuner")
-
-(constant (cap-audio "V4L2_CAP_AUDIO")
-	  :documentation "has audio support")
-
-(constant (cap-radio "V4L2_CAP_RADIO")
-	  :documentation "is a radio device")
-
-(constant (cap-readwrite "V4L2_CAP_READWRITE")
-	  :documentation "read/write systemcalls")
-
-(constant (cap-asyncio "V4L2_CAP_ASYNCIO")
-	  :documentation "async I/O")
-
-(constant (cap-streaming "V4L2_CAP_STREAMING")
-	  :documentation "streaming I/O ioctls")
-
-(constant (vidioc-enuminput "VIDIOC_ENUMINPUT"))
-(cstruct v4l2-input "struct v4l2_input"
-	 (index "index" :type :int)
-	 (name "name" :type :char :count 32)
-	 (type "type" :type :int)
-	 (audioset "audioset" :type :int)
-	 (tuner "tuner" :type :int)
-	 (std "std" :type :int64) ; not very elegant, but anyways
-	 (status "status" :type :int)
-	 (reserved "reserved" :type :int :count 4))
-
-;;;; Input types
-(constant (input-type-tuner "V4L2_INPUT_TYPE_TUNER"))
-(constant (input-type-camera "V4L2_INPUT_TYPE_CAMERA"))
-
-;;;; Input standards
-(constant (std-pal-b "V4L2_STD_PAL_B"))
-(constant (std-pal-b1 "V4L2_STD_PAL_B1"))
-(constant (std-pal-g "V4L2_STD_PAL_G"))
-(constant (std-pal-h "V4L2_STD_PAL_H"))
-(constant (std-pal-i "V4L2_STD_PAL_I"))
-(constant (std-pal-d "V4L2_STD_PAL_D"))
-(constant (std-pal-d1 "V4L2_STD_PAL_D1"))
-(constant (std-pal-k "V4L2_STD_PAL_K"))
-(constant (std-pal-m "V4L2_STD_PAL_M"))
-(constant (std-pal-n "V4L2_STD_PAL_N"))
-(constant (std-pal-nc "V4L2_STD_PAL_Nc"))
-(constant (std-pal-60 "V4L2_STD_PAL_60"))
-(constant (std-ntsc-m "V4L2_STD_NTSC_M"))
-(constant (std-ntsc-m-jp "V4L2_STD_NTSC_M_JP"))
-(constant (std-ntsc-443 "V4L2_STD_NTSC_443"))
-(constant (std-ntsc-m-kr "V4L2_STD_NTSC_M_KR"))
-(constant (std-secam-b "V4L2_STD_SECAM_B"))
-(constant (std-secam-d "V4L2_STD_SECAM_D"))
-(constant (std-secam-g "V4L2_STD_SECAM_G"))
-(constant (std-secam-h "V4L2_STD_SECAM_H"))
-(constant (std-secam-k "V4L2_STD_SECAM_K"))
-(constant (std-secam-k1 "V4L2_STD_SECAM_K1"))
-(constant (std-secam-l "V4L2_STD_SECAM_L"))
-(constant (std-secam-lc "V4L2_STD_SECAM_LC"))
-(constant (std-atsc-8-vsb "V4L2_STD_ATSC_8_VSB"))
-(constant (std-atsc-16-vsb "V4L2_STD_ATSC_16_VSB"))
-;; composite constants
-(constant (std-pal-bg "V4L2_STD_PAL_BG"))
-(constant (std-b "V4L2_STD_B"))
-(constant (std-gh "V4L2_STD_GH"))
-(constant (std-pal-dk "V4L2_STD_PAL_DK"))
-(constant (std-pal "V4L2_STD_PAL"))
-(constant (std-ntsc "V4L2_STD_NTSC"))
-(constant (std-mn "V4L2_STD_MN"))
-(constant (std-secam-dk "V4L2_STD_SECAM_DK"))
-(constant (std-dk "V4L2_STD_DK"))
-(constant (std-secam "V4L2_STD_SECAM"))
-(constant (std-525-60 "V4L2_STD_525_60"))
-(constant (std-625-50 "V4L2_STD_625_50"))
-(constant (std-unknown "V4L2_STD_UNKNOWN"))
-(constant (std-all "V4L2_STD_ALL"))
-
-;; Input statuses
-(constant (in-st-no-power "V4L2_IN_ST_NO_POWER"))
-(constant (in-st-no-signal "V4L2_IN_ST_NO_SIGNAL"))
-(constant (in-st-no-color "V4L2_IN_ST_NO_COLOR"))
-(constant (in-st-hflip "V4L2_IN_ST_HFLIP"))
-(constant (in-st-vflip "V4L2_IN_ST_VFLIP"))
-(constant (in-st-no-h-lock "V4L2_IN_ST_NO_H_LOCK"))
-(constant (in-st-color-kill "V4L2_IN_ST_COLOR_KILL"))
-(constant (in-st-no-sync "V4L2_IN_ST_NO_SYNC"))
-(constant (in-st-no-equ "V4L2_IN_ST_NO_EQU"))
-(constant (in-st-no-carrier "V4L2_IN_ST_NO_CARRIER"))
-(constant (in-st-macrovision "V4L2_IN_ST_MACROVISION"))
-(constant (in-st-no-access "V4L2_IN_ST_NO_ACCESS"))
-(constant (in-st-vtr "V4L2_IN_ST_VTR"))
-
-;; Quering video output
-(constant (vidioc-enumoutput "VIDIOC_ENUMOUTPUT"))
-(cstruct v4l2-output "struct v4l2_output"
-	 (index "index" :type :int)
-	 (name "name" :type :char :count 32)
-	 (type "type" :type :int)
-	 (audioset "audioset" :type :int)
-	 (modulator "modulator" :type :int)
-	 (std "std" :type :int64)
-	 (reserved "reserved" :type :int :count 4))
-;; output types
-(constant (output-type-modulator "V4L2_OUTPUT_TYPE_MODULATOR"))
-(constant (output-type-analog "V4L2_OUTPUT_TYPE_ANALOG"))
-(constant (output-type-analog-vga-overlay "V4L2_OUTPUT_TYPE_ANALOGVGAOVERLAY"))
-
-;; get/set video input output
-(constant (vidioc-g-input "VIDIOC_G_INPUT"))
-(constant (vidioc-s-input "VIDIOC_S_INPUT"))
-(constant (vidioc-g-output "VIDIOC_G_OUTPUT"))
-(constant (vidioc-s-output "VIDIOC_S_OUTPUT"))
-
-;; query audio inputs
-(constant (vidioc-enumaudio "VIDIOC_ENUMAUDIO"))
-(cstruct v4l2-audio "struct v4l2_audio"
-	 (index "index" :type :int)
-	 (name "name" :type :char :count 32)
-	 (capability "capability" :type :int)
-	 (mode "mode" :type :int)
-	 (reserved "reserved" :type :int :count 2))
-
-(constant (audcap-stereo "V4L2_AUDCAP_STEREO"))
-(constant (audcap-avl "V4L2_AUDCAP_AVL"))
-(constant (audmode-avl "V4L2_AUDMODE_AVL"))
-
-;;query audio outputs
-(constant (vidioc-enumaudout "VIDIOC_ENUMAUDOUT"))
-(cstruct v4l2-audioout "struct v4l2_audioout"
-	 (index "index" :type :int)
-	 (name "name" :type :char :count 32)
-	 (capability "capability" :type :int)
-	 (mode "mode" :type :int)
-	 (reserved "reserved" :type :int :count 2))
-
-;; set/get audio input/output
-(constant (vidioc-g-audio "VIDIOC_G_AUDIO"))
-(constant (vidioc-s-audio "VIDIOC_S_AUDIO"))
-(constant (vidioc-g-audout "VIDIOC_G_AUDOUT"))
-(constant (vidioc-s-audout "VIDIOC_S_AUDOUT"))
+#.(labels ((flatten-stringify-sym-list (lst)
+	     (iter (for elt in lst)
+		   (if (atom elt)
+		       (collect (string elt))
+		       (appending (mapcar (lambda (x)
+					    (format nil "~a-~a" (car elt) x))
+					  (flatten-stringify-sym-list (cdr elt)))))))
+	   (vidioc-constants (sym-names)
+	     (let ((fl-str (flatten-stringify-sym-list sym-names)))
+	       `(progn ,@(mapcar (lambda (sym-name)
+				   `(constant (,(intern sym-name)
+						,(cl-ppcre:regex-replace-all
+						  "-" sym-name "_"))))
+				 (mapcar (lambda (x)
+					   (format nil "VIDIOC-~a" x))
+					 fl-str)))))
+	   (v4l2-constants (sym-names)
+	     (let ((fl-str (flatten-stringify-sym-list sym-names)))
+	       `(progn ,@(mapcar (lambda (sym-name)
+				   `(constant (,(intern sym-name)
+						,(format nil "V4L2_~a"
+							 (cl-ppcre:regex-replace-all
+							  "-" sym-name "_")))))
+				 fl-str)))))
+    `(progn
+      ;; capabilities
+       ,(v4l2-constants '((cap (video capture output overlay output-overlay)
+			   (vbi capture output)
+			   (sliced-vbi capture output)
+			   rds-capture
+			   hw-freq-seek
+			   tuner
+			   audio
+			   radio
+			   readwrite
+			   asyncio
+			   streaming)))
+      (constant (vidioc-enuminput "VIDIOC_ENUMINPUT"))
+      (cstruct v4l2-input "struct v4l2_input"
+	       (index "index" :type :int)
+	       (name "name" :type :char :count 32)
+	       (type "type" :type :int)
+	       (audioset "audioset" :type :int)
+	       (tuner "tuner" :type :int)
+	       (std "std" :type :int64) ; not very elegant, but anyways
+	       (status "status" :type :int)
+	       (reserved "reserved" :type :int :count 4))
+      ;; input types
+      ,(v4l2-constants '((input-type tuner camera)))
+      ;; input standards
+      ,(v4l2-constants '((std (pal b b1 g h i d d1 k m n nc |60|)
+			  (ntsc m m-jp |443| m-kr)
+			  (secam b d g h k k1 l lc)
+			  (atsc 8-vsb |16| vsb)
+			  ;; composite constants
+			  (pal bg dk)
+			  (secam dk)
+			  b hg
+			  pal
+			  ntsc
+			  dk
+			  secam
+			  525-60
+			  mn
+			  625-50
+			  unknown
+			  all)))
+      ;; Input statuses
+      ,(v4l2-constants '((in-st no-power no-signal no-color hflip vflip no-h-lock
+			  color-kill no-sync no-equ no-carrier macrovision no-access
+			  vtr)))
+      ;; Quering video output
+      (constant (vidioc-enumoutput "VIDIOC_ENUMOUTPUT"))
+      (cstruct v4l2-output "struct v4l2_output"
+	       (index "index" :type :int)
+	       (name "name" :type :char :count 32)
+	       (type "type" :type :int)
+	       (audioset "audioset" :type :int)
+	       (modulator "modulator" :type :int)
+	       (std "std" :type :int64)
+	       (reserved "reserved" :type :int :count 4))
+      ;; output types
+      ,(v4l2-constants '((output-type modulator analog analog-vga-overlay)))
+      ;; get/set video input output
+      ,(vidioc-constants '((g input output) (s input output)))
+      ;; query audio inputs
+      (constant (vidioc-enumaudio "VIDIOC_ENUMAUDIO"))
+      (cstruct v4l2-audio "struct v4l2_audio"
+	       (index "index" :type :int)
+	       (name "name" :type :char :count 32)
+	       (capability "capability" :type :int)
+	       (mode "mode" :type :int)
+	       (reserved "reserved" :type :int :count 2))
+      ,(v4l2-constants '((audcap stereo avl) (audmode avl)))
+      ;;query audio outputs
+      (constant (vidioc-enumaudout "VIDIOC_ENUMAUDOUT"))
+      (cstruct v4l2-audioout "struct v4l2_audioout"
+	       (index "index" :type :int)
+	       (name "name" :type :char :count 32)
+	       (capability "capability" :type :int)
+	       (mode "mode" :type :int)
+	       (reserved "reserved" :type :int :count 2))
+      ;; set/get audio input/output
+      ,(vidioc-constants '((g audio audout) (s audio audout)))
+      ;; user control ids
+      ,(v4l2-constants '((cid base user-base brightness contrast saturation hue
+			  (audio volume balance bass treble mute))))
+      ))
